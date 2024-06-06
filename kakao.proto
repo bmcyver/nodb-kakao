@@ -1,0 +1,21 @@
+syntax = "proto3";
+package Kakao;
+
+message Local
+{
+  message Struct
+  {
+    int64 a = 1;
+    int64 b = 3;
+    int64 c = 4;
+    string str = 5;
+  }
+
+ message Main
+ {
+   string key = 1;
+   Struct data = 2;
+ }
+ 
+ repeated Main data = 1;
+}
