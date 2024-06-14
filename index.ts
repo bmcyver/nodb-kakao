@@ -1,11 +1,12 @@
 import { LogLevel, KakaoDB, Events } from './src';
 
 const listener = new KakaoDB({
-  debug: false,
+  mine: false,
   path: '/home/ubuntu/redroid/redroid/data/com.kakao.talk/',
   port: 3000,
   ip: '127.0.0.1',
   logLevel: LogLevel.DEBUG,
+  ignoreError: false,
 });
 
 listener.on(Events.messageCreate, async (data) => {});

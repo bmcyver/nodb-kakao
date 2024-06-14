@@ -1,5 +1,5 @@
 {
-  "name": "node-kakaodb",
+  "name": "nodb-kakao",
   "version": "0.1-alpha.1",
   "description": "",
   "main": "index.ts",
