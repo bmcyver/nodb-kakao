@@ -3,6 +3,7 @@ import { ChatLogsType, FriendsType } from '../../../db';
 import { BaseFeed, FeedType } from '../type';
 import { DBUtil } from '../../../utils';
 import { Events } from '../../../types';
+import { User } from '../../user';
 
 export class OpenLinkManageFeed extends BaseChat<
   OpenLinkHandOverFeedType | OpenLinkManageFeedType
@@ -12,7 +13,8 @@ export class OpenLinkManageFeed extends BaseChat<
     this.eventType = Events.openManage;
   }
 
-  public async getGrantUser(): Promise<FriendsType | undefined> {
+  public async getGrantUser(): Promise<User> {
+    if (!this.isGrant()) throw new Error('This is not grant feed');
     if (!this.cached.grantUser) {
       this.cached.grantUser = await DBUtil.getUserByUserId(
         (this.message as OpenLinkManageFeedType).member.userId,
@@ -21,7 +23,8 @@ export class OpenLinkManageFeed extends BaseChat<
     return this.cached.grantUser;
   }
 
-  public async getRevokeUser(): Promise<FriendsType | undefined> {
+  public async getRevokeUser(): Promise<User> {
+    if (!this.isRevoke()) throw new Error('This is not revoke feed');
     if (!this.cached.revokeUser) {
       this.cached.revokeUser = await DBUtil.getUserByUserId(
         (this.message as OpenLinkManageFeedType).member.userId,
@@ -30,7 +33,8 @@ export class OpenLinkManageFeed extends BaseChat<
     return this.cached.revokeUser;
   }
 
-  public async getPrevHost(): Promise<FriendsType | undefined> {
+  public async getPrevHost(): Promise<User> {
+    if (!this.isHandOver()) throw new Error('This is not hand over feed');
     if (!this.cached.prevHost) {
       this.cached.prevHost = await DBUtil.getUserByUserId(
         (this.message as OpenLinkHandOverFeedType).prevHost.userId,
@@ -39,7 +43,8 @@ export class OpenLinkManageFeed extends BaseChat<
     return this.cached.prevHost;
   }
 
-  public async getNewHost(): Promise<FriendsType | undefined> {
+  public async getNewHost(): Promise<User> {
+    if (!this.isHandOver()) throw new Error('This is not hand over feed');
     if (!this.cached.newHost) {
       this.cached.newHost = await DBUtil.getUserByUserId(
         (this.message as OpenLinkHandOverFeedType).newHost.userId,
@@ -49,20 +54,20 @@ export class OpenLinkManageFeed extends BaseChat<
   }
 
   public isGrant(): this is OpenLinkManageFeed & {
-    getGrantUser: () => Promise<FriendsType>;
+    getGrantUser: () => Promise<User>;
   } {
     return this.message.feedType === FeedType.OPENLINK_STAFF_ON;
   }
 
   public isRevoke(): this is OpenLinkManageFeed & {
-    getRevokeUser: () => Promise<FriendsType>;
+    getRevokeUser: () => Promise<User>;
   } {
     return this.message.feedType === FeedType.OPENLINK_STAFF_OFF;
   }
 
   public isHandOver(): this is OpenLinkManageFeed & {
-    getPrevHost: () => Promise<FriendsType>;
-    getNewHost: () => Promise<FriendsType>;
+    getPrevHost: () => Promise<User>;
+    getNewHost: () => Promise<User>;
   } {
     return this.message.feedType === FeedType.OPENLINK_HAND_OVER_HOST;
   }

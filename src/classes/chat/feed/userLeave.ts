@@ -3,6 +3,7 @@ import { ChatLogsType } from '../../../db';
 import { BaseFeed } from '../type';
 import { DBUtil } from '../../../utils';
 import { Events } from '../../../types';
+import { User } from '../../user';
 
 export class UserLeaveFeed extends BaseChat<UserLeaveFeedType> {
   constructor(raws: ChatLogsType) {
@@ -10,7 +11,7 @@ export class UserLeaveFeed extends BaseChat<UserLeaveFeedType> {
     this.eventType = Events.userLeave;
   }
 
-  public async getUser() {
+  public async getUser(): Promise<User> {
     if (!this.cached.leftUser) {
       this.cached.leftUser = await DBUtil.getUserByUserId(
         this.message.member.userId,

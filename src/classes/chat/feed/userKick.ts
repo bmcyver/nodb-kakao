@@ -3,6 +3,7 @@ import { ChatLogsType } from '../../../db';
 import { BaseFeed } from '../type';
 import { DBUtil } from '../../../utils';
 import { Events } from '../../../types';
+import { User } from '../../user';
 
 export class UserKickFeed extends BaseChat<UserKickFeedType> {
   constructor(raws: ChatLogsType) {
@@ -10,7 +11,7 @@ export class UserKickFeed extends BaseChat<UserKickFeedType> {
     this.eventType = Events.userKick;
   }
 
-  public async getKickUser() {
+  public async getKickUser(): Promise<User> {
     if (!this.cached.kickUser) {
       this.cached.kickUser = await DBUtil.getUserByUserId(
         this.message.member.userId,

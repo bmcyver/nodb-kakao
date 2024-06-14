@@ -57,7 +57,7 @@ export class CommonChat extends BaseChat {
     return this.cached.contact;
   }
 
-  public get audio() {
+  public get audio(): AudioAttachment | undefined {
     if (!this.cached.audio) {
       this.cached.audio = new AudioAttachment(DBUtil.parse(this.attachment));
     }

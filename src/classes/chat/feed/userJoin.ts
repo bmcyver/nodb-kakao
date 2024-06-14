@@ -4,6 +4,7 @@ import { BaseFeed } from '../type';
 import { DBUtil } from '../../../utils';
 import { logger } from '../../../logger';
 import { Events } from '../../../types';
+import { User } from '../../user';
 
 export class UserJoinFeed extends BaseChat<UserJoinFeedType> {
   constructor(raws: ChatLogsType) {
@@ -11,7 +12,7 @@ export class UserJoinFeed extends BaseChat<UserJoinFeedType> {
     this.eventType = Events.userJoin;
   }
 
-  public async getJoinUserAt(at: number = 0) {
+  public async getJoinUserAt(at: number = 0): Promise<User> {
     //TODO: If user joined, db2.friends is not updated immediately. So, add some sleep?
     logger.warn(
       '⚠️ We recommend not to use this function. Because db2.friends is not updated immediately if user joined. It will be patched soon',
@@ -27,7 +28,7 @@ export class UserJoinFeed extends BaseChat<UserJoinFeedType> {
     return this.cached[`joinUser_${at}`];
   }
 
-  public async getAllJoinUsers() {
+  public async getAllJoinUsers(): Promise<User[]> {
     //TODO: If user joined, db2.friends is not updated immediately. So, add some sleep?
     logger.warn(
       '⚠️ We recommend not to use this function. Because db2.friends is not updated immediately if user joined. It will be patched soon',
