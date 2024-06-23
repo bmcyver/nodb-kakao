@@ -21,9 +21,11 @@ export async function protobuf(path: string): Promise<LocalProtobuf> {
           ),
           { longs: Number },
         ).data;
+        logger.debug(object)
         for (const data of object) {
           result[data.key] = data.data[Object.keys(data.data)[0]];
         }
+        logger.debug(result)
       } catch (e) {
         logger.error('❌ Failed to load Kakao local protobuf data', e);
         process.exit(1);
