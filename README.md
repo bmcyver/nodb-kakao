@@ -1,5 +1,5 @@
 # Nodejs KakaoTalk Database Listener
-Node.js 기반 카카오 디비 리스너
+Node.js 기반 카카오톡 디비 리스너
 
 ## 설치
  - [리드로이드](https://github.com/remote-android/redroid-doc)

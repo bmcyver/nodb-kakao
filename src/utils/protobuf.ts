@@ -1,11 +1,11 @@
 import * as protobufjs from 'protobufjs';
 import * as fs from 'fs';
-import {join} from 'path';
+import { join } from 'path';
 import { logger } from '../logger';
 
 export async function protobuf(path: string): Promise<LocalProtobuf> {
   return new Promise((resolve) => {
-    protobufjs.load(`${__dirname}/../../../kakao.proto`, function (err, root) {
+    protobufjs.load(join(__dirname, '../../../kakao.proto'), function (err, root) {
       if (err || !root) {
         logger.error('❌ Failed to load Kakao local protobuf data', err);
         process.exit(1);
@@ -21,11 +21,9 @@ export async function protobuf(path: string): Promise<LocalProtobuf> {
           ),
           { longs: Number },
         ).data;
-        logger.debug(object)
         for (const data of object) {
           result[data.key] = data.data[Object.keys(data.data)[0]];
         }
-        logger.debug(result)
       } catch (e) {
         logger.error('❌ Failed to load Kakao local protobuf data', e);
         process.exit(1);
