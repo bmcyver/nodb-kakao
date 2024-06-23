@@ -1,5 +1,5 @@
 import { BaseChat } from '../base';
-import { ChatLogsType, FriendsType } from '../../../db';
+import { ChatLogsType } from '../../../db';
 import { BaseFeed, FeedType } from '../type';
 import { DBUtil } from '../../../utils';
 import { Events } from '../../../types';

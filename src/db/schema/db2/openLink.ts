@@ -1,5 +1,4 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { friends } from './friends';
 
 export const openLink = sqliteTable('open_link', {
   id: integer('id').primaryKey(),

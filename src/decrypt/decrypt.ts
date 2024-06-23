@@ -96,8 +96,7 @@ class KakaoDbParser {
     try {
       const salt = prefixes[encType] + user_id;
       const newSalt = salt.substring(0, 16).padEnd(16, '\0');
-      const realSalt = Buffer.from(newSalt).toString('utf-8');
-      return realSalt;
+      return Buffer.from(newSalt).toString('utf-8');
     } catch (error) {
       throw new Error('Unsupported encoding type');
     }
@@ -137,7 +136,7 @@ class KakaoDbParser {
       hasher.update(Buffer.from(I));
       let A = hasher.digest();
 
-      range(1, iteration).forEach((j) => {
+      range(1, iteration).forEach(() => {
         hasher = Crypto.createHash('sha1');
         hasher.update(A);
         A = hasher.digest();

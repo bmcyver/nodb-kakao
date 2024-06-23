@@ -12,6 +12,18 @@ export class UserJoinFeed extends BaseChat<UserJoinFeedType> {
     this.eventType = Events.userJoin;
   }
 
+  public get joinUserNames() {
+    return this.message.members.map((v) => v.nickName);
+  }
+
+  public get joinUserIds() {
+    return this.message.members.map((v) => v.userId);
+  }
+
+  public get joinUserCount() {
+    return this.message.members.length;
+  }
+
   public async getJoinUserAt(at: number = 0): Promise<User> {
     //TODO: If user joined, db2.friends is not updated immediately. So, add some sleep?
     logger.warn(
@@ -39,18 +51,6 @@ export class UserJoinFeed extends BaseChat<UserJoinFeedType> {
       );
     }
     return this.cached.joinUsers;
-  }
-
-  public get joinUserNames() {
-    return this.message.members.map((v) => v.nickName);
-  }
-
-  public get joinUserIds() {
-    return this.message.members.map((v) => v.userId);
-  }
-
-  public get joinUserCount() {
-    return this.message.members.length;
   }
 }
 

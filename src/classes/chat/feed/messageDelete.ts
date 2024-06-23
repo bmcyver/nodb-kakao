@@ -3,6 +3,7 @@ import { BaseChat } from '../base';
 import { FeedType } from '../type';
 import { ChatLogsType } from '../../../db';
 import { Events } from '../../../types';
+import { CommonChat } from '../common';
 
 export class MessageDeleteFeed extends BaseChat<MessageDeleteFeedType> {
   constructor(raw: ChatLogsType) {
@@ -18,7 +19,7 @@ export class MessageDeleteFeed extends BaseChat<MessageDeleteFeedType> {
     return this.message.logId;
   }
 
-  public async getOriginalMessage() {
+  public async getOriginalMessage(): Promise<CommonChat> {
     if (!this.cached.originalMessage) {
       this.cached.orignalMessage = await DBUtil.getChatByLogId(
         this.message.logId,

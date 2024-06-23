@@ -1,5 +1,4 @@
-import { LogLevel, KakaoDB, Events } from './src';
-import { User } from './src/classes';
+import { LogLevel, KakaoDB, Events, DBUtil } from './src';
 
 const listener = new KakaoDB({
   mine: false,
@@ -33,6 +32,7 @@ listener.on(Events.messageCreate, async (data) => {
 
 listener.on(Events.messageDelete, async (data) => {
   const deletedMessage = await data.chat.getOriginalMessage();
+  if (deletedMessage.isPhoto()) deletedMessage.photo;
   await data.channel.send('메시지 삭제됨!');
 });
 
@@ -57,18 +57,18 @@ listener.on(Events.userKick, async (data) => {
 
 listener.on(Events.openManage, async (data) => {
   if (data.chat.isGrant()) {
-    const grantedUser = (await data.chat.getGrantUser()) as User;
-    await data.channel.send(`${grantedUser?.name}님이 부방장이 되었어요.`);
+    const grantedUser = await data.chat.getGrantUser();
+    await data.channel.send(`${grantedUser.name}님이 부방장이 되었어요.`);
   }
   if (data.chat.isRevoke()) {
-    const revokeUser = (await data.chat.getRevokeUser()) as User;
-    await data.channel.send(`${revokeUser?.name}님이 부방장에서 해제되었어요.`);
+    const revokeUser = await data.chat.getRevokeUser();
+    await data.channel.send(`${revokeUser.name}님이 부방장에서 해제되었어요.`);
   }
   if (data.chat.isHandOver()) {
-    const newHost = (await data.chat.getNewHost()) as User;
-    const prevHost = (await data.chat.getPrevHost()) as User;
+    const newHost = await data.chat.getNewHost();
+    const prevHost = await data.chat.getPrevHost();
     await data.channel.send(
-      `${prevHost?.name}님이 ${newHost?.name}님에게 방장을 넘겼어요.`,
+      `${prevHost?.name}님이 ${newHost.name}님에게 방장을 넘겼어요.`,
     );
   }
 });

@@ -1,5 +1,4 @@
 import { blob, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { chatLogs } from './chatLogs';
 
 export const chatRooms = sqliteTable('chat_rooms', {
   _id: integer('_id').primaryKey(),

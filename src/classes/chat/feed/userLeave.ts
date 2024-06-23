@@ -11,6 +11,10 @@ export class UserLeaveFeed extends BaseChat<UserLeaveFeedType> {
     this.eventType = Events.userLeave;
   }
 
+  public get nickName() {
+    return this.message.member.nickName;
+  }
+
   public async getUser(): Promise<User> {
     if (!this.cached.leftUser) {
       this.cached.leftUser = await DBUtil.getUserByUserId(
@@ -18,10 +22,6 @@ export class UserLeaveFeed extends BaseChat<UserLeaveFeedType> {
       );
     }
     return this.cached.leftUser;
-  }
-
-  public get nickName() {
-    return this.message.member.nickName;
   }
 }
 

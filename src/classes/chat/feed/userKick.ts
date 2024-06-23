@@ -11,6 +11,14 @@ export class UserKickFeed extends BaseChat<UserKickFeedType> {
     this.eventType = Events.userKick;
   }
 
+  public get kickUserId() {
+    return this.message.member.userId;
+  }
+
+  public get kickUserNickName() {
+    return this.message.member.nickName;
+  }
+
   public async getKickUser(): Promise<User> {
     if (!this.cached.kickUser) {
       this.cached.kickUser = await DBUtil.getUserByUserId(
@@ -18,14 +26,6 @@ export class UserKickFeed extends BaseChat<UserKickFeedType> {
       );
     }
     return this.cached.kickUser;
-  }
-
-  public get kickUserId() {
-    return this.message.member.userId;
-  }
-
-  public get kickUserNickName() {
-    return this.message.member.nickName;
   }
 }
 

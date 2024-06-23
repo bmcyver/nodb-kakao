@@ -3,16 +3,12 @@ import { InitInterface, MessageEvents } from './types';
 import { EventEmitter } from 'events';
 import * as fs from 'fs';
 import TypedEmitter from 'typed-emitter';
-import { logger } from './logger';
-import { LocalProtobuf, protobuf } from './utils';
-import { initDrizzle } from './db';
+import { initLogger, logger } from './logger';
+import { DBUtil, EventQueue, LocalProtobuf, protobuf } from './utils';
+import { chatLogs, initDrizzle } from './db';
 import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
-import { DBUtil } from './utils';
-import { EventQueue } from './utils';
 import path from 'path';
 import { sql } from 'drizzle-orm';
-import { chatLogs } from './db';
-import { initLogger } from './logger';
 
 export class KakaoDB {
   private readonly socket: Socket;

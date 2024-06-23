@@ -1,6 +1,6 @@
 import { MentionsAttachment, MentionsAttachmentT } from './mentions';
 import { DBUtil } from '../../../utils';
-import { User } from '../../user/common';
+import { User } from '../../user';
 import { CommonChat } from '../common';
 
 export class ReplyAttachment {

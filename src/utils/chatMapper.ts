@@ -1,21 +1,27 @@
 import { ChatLogsType } from '../db';
-import { BaseFeed, ChatType, FeedType } from '../classes/chat/type';
-import { CommonChat } from '../classes/chat/common';
-
-import { DBUtil } from './DBUtil';
 import {
+  BaseFeed,
+  ChatType,
+  CommonChat,
+  FeedType,
   MessageDeleteFeed,
   MessageHideFeed,
   OpenLinkManageFeed,
   UserJoinFeed,
   UserKickFeed,
   UserLeaveFeed,
-} from '../classes/chat/feed';
+} from '../classes';
+
+import { DBUtil } from './DBUtil';
 
 export function chatMapper(raw: ChatLogsType) {
   if (raw.type === ChatType.FEED) {
     const message = DBUtil.parse<BaseFeed>(
-      DBUtil.decrypt(raw.message ?? '', DBUtil.userId, DBUtil.parse(raw.v)),
+      DBUtil.decrypt(
+        raw.message ?? '',
+        DBUtil.getUserId(),
+        DBUtil.parse(raw.v),
+      ),
     );
     switch (message.feedType) {
       case FeedType.LEAVE:

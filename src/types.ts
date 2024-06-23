@@ -1,15 +1,15 @@
 import {
   Channel,
+  CommonChat,
   MessageDeleteFeed,
   MessageHideFeed,
   OpenLinkManageFeed,
+  User,
   UserJoinFeed,
   UserKickFeed,
   UserLeaveFeed,
 } from './classes';
-import { User } from './classes';
 import { LogLevel } from './logger';
-import { CommonChat } from './classes';
 
 export interface InitInterface {
   /**

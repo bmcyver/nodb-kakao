@@ -1,5 +1,5 @@
-import { User } from '../../user/common';
-import { DBUtil } from '../../../utils/DBUtil';
+import { User } from '../../user';
+import { DBUtil } from '../../../utils';
 
 export class MentionsAttachment {
   private readonly cached: Record<string, any> = {};
