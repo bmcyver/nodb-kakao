@@ -21,8 +21,8 @@ export class KakaoDB {
 
   constructor(private readonly config: InitInterface) {
     try {
-      initLogger(config.logLevel, 'node-kakaodb');
-      logger.info('🚀 Initializing Node-kakaoDB');
+      initLogger(config.logLevel, 'nodb-kakao');
+      logger.info('🚀 Initializing nodb-kakao');
       logger.debug('🔄 Checking Permission');
       fs.accessSync(
         config.path,
