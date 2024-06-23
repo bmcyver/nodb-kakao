@@ -1,5 +1,6 @@
 import * as protobufjs from 'protobufjs';
 import * as fs from 'fs';
+import {join} from 'path';
 import { logger } from '../logger';
 
 export async function protobuf(path: string): Promise<LocalProtobuf> {
@@ -15,7 +16,7 @@ export async function protobuf(path: string): Promise<LocalProtobuf> {
         const object = proto.toObject(
           proto.decode(
             fs.readFileSync(
-              `${path}/files/datastore/LocalUser_DataStore.pref.preferences_pb`,
+              join(path, 'files/datastore/LocalUser_DataStore.pref.preferences_pb'),
             ),
           ),
           { longs: Number },
