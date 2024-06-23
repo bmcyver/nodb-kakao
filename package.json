@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "rm -rf dist && tsc && node dist",
+    "dev": "tsc && node dist",
     "build": "tsc",
     "start": "node dist",
     "fix": "eslint ./src --fix"
