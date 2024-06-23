@@ -47,9 +47,18 @@ export class KakaoDB {
       logger.warn('⚠️ DB Listener already started.');
     } else {
       logger.info('🚀 Starting DB Listener');
-      logger.debug('🔄 Loading Local Protobuf');
-      this.#localPref = await protobuf(this.config.path);
-      logger.debug('✅ Local Protobuf Loaded');
+      if (!this.config.userId) {
+        logger.debug('🔄 Loading Local Protobuf');
+        this.#localPref = await protobuf(this.config.path);
+        logger.debug('✅ Local Protobuf Loaded');
+        logger.debug('🔄 Setting User id', this.#localPref.old_user_id);
+        // @ts-ignore
+        DBUtil.setUserId(this.#localPref.old_user_id as number);
+      } else {
+        logger.debug('🔄 Setting User id', this.config.userId);
+        // @ts-ignore
+        DBUtil.setUserId(this.config.userId);
+      }
       this.watcher = fs.watch(
         path.resolve(this.config.path, 'databases/KakaoTalk.db-wal'),
       );
@@ -59,9 +68,7 @@ export class KakaoDB {
       this.queue = new EventQueue();
       // @ts-ignore
       DBUtil.setDrizzle(this.drizzle);
-      logger.debug('🔄 Setting User id', this.#localPref.old_user_id);
-      // @ts-ignore
-      DBUtil.setUserId(this.#localPref.old_user_id as number);
+
       // @ts-ignore
       DBUtil.setSocket(this.socket);
       this.lastID = (

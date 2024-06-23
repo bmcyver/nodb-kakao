@@ -7,6 +7,7 @@ const listener = new KakaoDB({
   ip: '127.0.0.1',
   logLevel: LogLevel.DEBUG,
   ignoreError: false,
+  userId: 414336178
 });
 
 listener.on(Events.messageCreate, async (data) => {

@@ -12,6 +12,14 @@ import {
 import { LogLevel } from './logger';
 
 export interface InitInterface {
+
+  /**
+   * 카카오톡 계정의 userId입니다. (없다면 자동으로 불러옵니다.)
+   * @example
+   * 1234567890
+   */
+  userId?: string | number;
+
   /**
    * 소켓을 전송할때 사용될 주소입니다.
    * @example

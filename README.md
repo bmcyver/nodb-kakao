@@ -30,6 +30,7 @@ const listener = new KakaoDB({
   ip: '127.0.0.1',
   logLevel: LogLevel.DEBUG, 
   ignoreError: false,
+  userId: 'userID here' // 없다면 자동으로 불러옵니다.
 });
 
 listener.on(Events.messageCreate, async (data) => {});
@@ -70,6 +71,7 @@ const listener = new KakaoDB({
   ip: '127.0.0.1',
   logLevel: LogLevel.DEBUG,
   ignoreError: false,
+  userId: 'userID here' // 없다면 자동으로 불러옵니다.
 });
 
 listener.on(Events.messageCreate, async (data) => {});
