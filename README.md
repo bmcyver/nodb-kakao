@@ -83,4 +83,7 @@ listener.on(Events.openManage, async (data) => {});
 listener.start();
 ```
 
+## 예제
+[index.ts](/index.ts) 파일을 참고하세요.
+
 pr과 issue는 매우 환영합니다 :D
